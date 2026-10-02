@@ -115,4 +115,23 @@ class AnimalTest {
         blankName.getMessage().toLowerCase().contains("name"),
         "the message should name the offending argument");
   }
+
+  @Test
+  void aNullSpeciesMessageNamesSpecies() {
+    IntakeException e = assertThrows(IntakeException.class,
+        () -> new Animal("Rex", null, AgeMonths.of(5), LocalDate.of(2026, 9, 21)));
+    assertTrue(e.getMessage().contains("species"));
+  }
+
+  @Test
+  void tabsAndNewlinesAroundTheNameAreTrimmed() {
+    Animal a = new Animal("\tRex\n", Species.DOG, AgeMonths.of(5), LocalDate.of(2026, 9, 21));
+    assertEquals("Rex", a.name());
+  }
+
+  @Test
+  void toStringWithWholeYearsHasNoMonthsPart() {
+    Animal a = new Animal("Rex", Species.DOG, AgeMonths.of(24), LocalDate.of(2026, 1, 5));
+    assertEquals("Rex (Dog, 2 years, intake 2026-01-05)", a.toString());
+  }
 }

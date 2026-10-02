@@ -68,7 +68,7 @@ public final class AgeMonths {
    * @return the number of complete years, never negative
    */
   public int years() {
-    throw new UnsupportedOperationException("TODO: implement years()");
+    return months / 12;
   }
 
   /**
@@ -79,7 +79,7 @@ public final class AgeMonths {
    * @return a value in the range 0 to 11 inclusive
    */
   public int remainderMonths() {
-    throw new UnsupportedOperationException("TODO: implement remainderMonths()");
+    return months % 12;
   }
 
   /**
@@ -88,7 +88,7 @@ public final class AgeMonths {
    * @return {@code true} if this age is less than twelve months
    */
   public boolean isUnderOneYear() {
-    throw new UnsupportedOperationException("TODO: implement isUnderOneYear()");
+    return months < 12;
   }
 
   /**
@@ -112,8 +112,22 @@ public final class AgeMonths {
    *
    * @return a description of this age, never {@code null}
    */
+
+  /** Formats a count with its unit, pluralised unless the count is one. */
   @Override
   public String toString() {
-    throw new UnsupportedOperationException("TODO: implement toString()");
+    if (isUnderOneYear()) {
+        return plural(months, "month");
+    }
+    if (remainderMonths() == 0) {
+        return plural(years(), "year");
+    }
+    return plural(years(), "year") + ", " + plural(remainderMonths(), "month");
+}
+
+private static String plural(int count, String unit) {
+    return count + " " + unit + (count == 1 ? "" : "s");
   }
+     
+
 }
