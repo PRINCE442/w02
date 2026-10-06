@@ -97,4 +97,29 @@ class AgeMonthsTest {
         tooOld.getMessage().contains(String.valueOf(AgeMonths.MAX_MONTHS + 1)),
         "the message should name the value that was rejected");
   }
+
+  @Test
+  void oneBelowTheMaximumIsAllowed() {
+    AgeMonths age = AgeMonths.of(AgeMonths.MAX_MONTHS - 1);
+    assertEquals(479, age.months());
+    assertEquals("39 years, 11 months", age.toString());
+  }
+
+  @Test
+  void theMaximumDescribesItselfAsWholeYears() {
+    assertEquals("40 years", AgeMonths.of(AgeMonths.MAX_MONTHS).toString());
+  }
+
+  @Test
+  void theNegativeRefusalNamesTheOffendingValue() {
+    IntakeException tooYoung = assertThrows(IntakeException.class, () -> AgeMonths.of(-1));
+    assertTrue(tooYoung.getMessage().contains("-1"),
+        "the message should name the value that was rejected");
+  }
+
+  @Test
+  void pluralsWorkBeyondTwoYears() {
+    assertEquals("3 years, 1 month", AgeMonths.of(37).toString());
+    assertEquals("3 years, 2 months", AgeMonths.of(38).toString());
+  }
 }

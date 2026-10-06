@@ -53,20 +53,20 @@ public class Animal {
    * @throws IntakeException if any argument is {@code null}, or if {@code name} is blank
    */
   public Animal(String name, Species species, AgeMonths age, LocalDate intakeDate) {
-    if (name == null) {
+      if (name == null) {
         throw new IntakeException("name must not be null");
     }
     String trimmed = name.strip();
-    if (trimmed.isEmpty()) {
+      if (trimmed.isEmpty()) {
         throw new IntakeException("name must not be blank, was \"" + name + "\"");
     }
-    if (species == null) {
+      if (species == null) {
         throw new IntakeException("species must not be null");
     }
-    if (age == null) {
+      if (age == null) {
         throw new IntakeException("age must not be null");
     }
-    if (intakeDate == null) {
+      if (intakeDate == null) {
         throw new IntakeException("intakeDate must not be null");
     }
 

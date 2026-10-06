@@ -113,7 +113,7 @@ public final class AgeMonths {
    * @return a description of this age, never {@code null}
    */
 
-  /** Formats a count with its unit, pluralised unless the count is one. */
+  
   @Override
   public String toString() {
     if (isUnderOneYear()) {
@@ -124,6 +124,8 @@ public final class AgeMonths {
     }
     return plural(years(), "year") + ", " + plural(remainderMonths(), "month");
 }
+
+/** Formats a count with its unit, pluralised unless the count is one. */
 
 private static String plural(int count, String unit) {
     return count + " " + unit + (count == 1 ? "" : "s");
